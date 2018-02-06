@@ -28,11 +28,11 @@ public class WeatherResponse implements Serializable{
 		this.desc = desc;
 	}
 
-	public Weather getDate() {
+	public Weather getData() {
 		return data;
 	}
 
-	public void setDate(Weather data) {
+	public void setData(Weather data) {
 		this.data = data;
 	}
 	
