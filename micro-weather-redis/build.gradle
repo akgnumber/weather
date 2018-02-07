@@ -1,0 +1,60 @@
+// buildscript ������нű�����ִ��
+buildscript {
+
+	// ext ���ڶ��嶯̬����
+	ext {
+		springBootVersion = '2.0.0.M4'
+	}
+
+	// ʹ����Maven������ֿ⼰Spring�Լ��Ĳֿ⣨Ҳ����ָ�������ֿ⣩
+	repositories {
+		// mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+		maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+	}
+
+	// ������ϵ
+	dependencies {
+
+		// classpath ��������ִ������Ľű�ʱ��ClassLoader ����ʹ����Щ������
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+// ʹ�ò��
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+// ָ�������ɵı����ļ��İ汾��Ĭ���Ǵ���� jar ��
+group = 'com.waylau.spring.cloud'
+version = '1.0.0'
+
+// ָ������ .java �ļ��� JDK �汾
+sourceCompatibility = 1.8
+
+// ʹ����Maven������ֿ⼰Spring�Լ��Ĳֿ⣨Ҳ����ָ�������ֿ⣩
+repositories {
+	//mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+	maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+}
+
+// ������ϵ
+dependencies {
+
+	// ���������ڱ���׶�
+	compile('org.springframework.boot:spring-boot-starter-web')
+	
+	// HttpClient
+	compile('org.apache.httpcomponents:httpclient:4.5.3')
+	
+	// Redis
+	compile('org.springframework.boot:spring-boot-starter-data-redis')
+
+	// ���������ڲ��Խ׶�
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}

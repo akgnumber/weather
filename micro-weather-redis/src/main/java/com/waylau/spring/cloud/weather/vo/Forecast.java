@@ -3,21 +3,21 @@ package com.waylau.spring.cloud.weather.vo;
 import java.io.Serializable;
 
 /**
- * 昨日天气
+ * 未来的天气
  * @author Administrator
  */
-public class Yesterday implements Serializable{
+public class Forecast implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private String date;
 	
 	private String high;
 	
-	private String fx;
+	private String fengli;
 	
 	private String low;
 	
-	private String fl;
+	private String fengxiang;
 	
 	private String type;
 
@@ -37,12 +37,12 @@ public class Yesterday implements Serializable{
 		this.high = high;
 	}
 
-	public String getFx() {
-		return fx;
+	public String getFengli() {
+		return fengli;
 	}
 
-	public void setFx(String fx) {
-		this.fx = fx;
+	public void setFengli(String fengli) {
+		this.fengli = fengli;
 	}
 
 	public String getLow() {
@@ -53,12 +53,12 @@ public class Yesterday implements Serializable{
 		this.low = low;
 	}
 
-	public String getFl() {
-		return fl;
+	public String getFengxiang() {
+		return fengxiang;
 	}
 
-	public void setFl(String fl) {
-		this.fl = fl;
+	public void setFengxiang(String fengxiang) {
+		this.fengxiang = fengxiang;
 	}
 
 	public String getType() {
