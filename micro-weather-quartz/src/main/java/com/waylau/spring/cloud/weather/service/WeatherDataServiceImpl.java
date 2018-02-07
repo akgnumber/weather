@@ -79,4 +79,29 @@ public class WeatherDataServiceImpl implements WeatherDataService {
 		return resp;
 	}
 
+	@Override
+	public void syncDataByCityId(String cityId) {
+		String uri = WEATHER_URI + "citykey=" + cityId;
+		this.saveWeatherData(uri);
+	}
+	
+	/**
+	 * 把天气数据放入redis
+	 * @param uri
+	 */
+	private void saveWeatherData(String uri) {
+		String key = uri;
+		String strBody = null;
+		ObjectMapper mapper = new ObjectMapper();
+		WeatherResponse resp = null;
+		ValueOperations<String, String> ops = stringRedisTemplate.opsForValue();
+		
+		ResponseEntity<String> respString = restTemplate.getForEntity(uri, String.class);
+		
+		if (respString.getStatusCodeValue() == 200) {
+			strBody = respString.getBody();
+		}
+		ops.set(key, strBody, TIME_OUT,TimeUnit.SECONDS);
+		
+	}
 }
