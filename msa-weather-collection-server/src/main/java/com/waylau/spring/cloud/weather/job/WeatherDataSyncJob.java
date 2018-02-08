@@ -1,5 +1,6 @@
 package com.waylau.spring.cloud.weather.job;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.quartz.JobExecutionContext;
@@ -9,8 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.quartz.QuartzJobBean;
 
-import com.waylau.spring.cloud.weather.service.CityDataService;
-import com.waylau.spring.cloud.weather.service.WeatherDataService;
+import com.waylau.spring.cloud.weather.service.WeatherDataCollectionService;
 import com.waylau.spring.cloud.weather.vo.City;
 
 /**
@@ -21,17 +21,21 @@ public class WeatherDataSyncJob extends QuartzJobBean{
 	private final static Logger logger = LoggerFactory.getLogger(WeatherDataSyncJob.class);
 	
 	@Autowired
-	private CityDataService cityDataService;
-	@Autowired
-	private WeatherDataService weatherDataService;
+	private WeatherDataCollectionService weatherDataCollectionService;
 	
 	@Override
 	protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
 		logger.info("Weather Data Sync Job. Start!");
 		//获取城市ID列表
 		List<City> cityList = null;
+		
+		//	TODO	改为由城市数据API微服务来提供数据
 		try {
-			cityList = cityDataService.listCity();
+//			cityList = cityDataService.listCity();
+			cityList = new ArrayList<>();
+			City city = new City();
+			city.setCityId("101280601");
+			cityList.add(city);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			logger.error("【从xml中获取城市列表ID异常】message={}",e);
@@ -44,7 +48,7 @@ public class WeatherDataSyncJob extends QuartzJobBean{
 			String cityId = city.getCityId();
 			logger.info("Weather Data Sync Job");
 			
-			weatherDataService.syncDataByCityId(cityId);
+			weatherDataCollectionService.sysncDataByCityId(cityId);
 		}
 		
 		logger.info("Weather Data Sync Job. End!");
